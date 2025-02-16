@@ -94,3 +94,7 @@ struct HourlyWeatherHeader: View {
             weatherVM.request3DaysForecast(lat: lat, lon: lon)
         }
 }
+
+#Preview("ContentView") {
+    ContentView()
+}

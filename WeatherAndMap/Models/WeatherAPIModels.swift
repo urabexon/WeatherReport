@@ -71,12 +71,54 @@ struct HourlyForecast: Codable, Hashable {
     let temperature: Double
     let condition: Condition
     let chanceOfRain: Double
+    let chanceOfSnow: Double
         
     enum CodingKeys: String, CodingKey {
         case time
         case temperature = "temp_c"
         case condition
         case chanceOfRain = "chance_of_rain"
+        case chanceOfSnow = "chance_of_snow"
+    }
+    
+    // 時間毎の予報を表示用の構造体の形に変換
+    func toDisplayFormat(hourlyForecast: HourlyForecast) -> HourlyDisplayForecast {
+        let dateAndTime: (String, String) = splitTime(timeString: hourlyForecast.time)
+        let displayWeather = HourlyDisplayForecast(
+            date: dateAndTime.0,
+            time: dateAndTime.1,
+            weatherIcon: hourlyForecast.condition.icon,
+            temperature: hourlyForecast.temperature,
+            chanceOfRain: hourlyForecast.chanceOfRain
+        )
+        return displayWeather
+    }
+    
+    // timeに入っている「日時」の文字列→「日付」、「時間」に分割して(日付、時間)の文字列のタプルで返す
+    func splitTime(timeString: String) -> (String, String) {
+        var dateAndTimeString: (String, String) = ("----年--月--日", "--:--")
+        // 日付と時刻のフォーマットを指定
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        // 文字列をDate型に変換
+        if let date = dateFormatter.date(from: timeString) {
+            // Calendarを使って日付と時刻を抽出
+            let calendar = Calendar.current // ユーザーの現在の暦を取得
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+            
+            // 日付と時刻の文字列を作成
+            let dateString = "\(components.year!)年\(components.month!)月\(components.day!)日"
+            let timeString = "\(components.hour!)"
+            
+            // print(dateString) // 出力形式: 2024年10月20日
+            // print(timeString) // 出力形式: 11
+            dateAndTimeString = (dateString, timeString)
+            return dateAndTimeString
+        } else {
+            print("Date conversion failed!")
+            return dateAndTimeString
+        }
     }
 }
     

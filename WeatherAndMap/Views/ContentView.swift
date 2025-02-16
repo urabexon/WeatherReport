@@ -18,7 +18,11 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                
+                VStack(spacing: 20) {
+                    DailyWeatherView(weatherVM: weatherVM)
+                    HourlyWeatherView(weatherVM: weatherVM)
+                }
+                .padding()
             }
             .navigationTitle("ここに現在地がどこか表示") // 画面上部のタイトル
             .navigationBarTitleDisplayMode(.inline) // タイトルの書式
