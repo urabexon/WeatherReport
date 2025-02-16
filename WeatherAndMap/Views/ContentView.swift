@@ -26,6 +26,21 @@ struct ContentView: View {
             }
             .navigationTitle("現在地: \(locationManager.address)") // 画面上部のタイトル
             .navigationBarTitleDisplayMode(.inline) // タイトルの書式
+            
+            // マップ画面へのボタンをナビゲーションバーに追加
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        MyLocationView(locationManager: locationManager)
+                    } label: {
+                        Image(systemName: "map")
+                    }
+                }
+            }
+            // スクロールビューを下に引っ張って実行
+            .refreshable {
+                getWeatherForecast()
+            }
         }
         .padding()
         .onAppear {
