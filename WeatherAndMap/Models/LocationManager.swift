@@ -74,5 +74,6 @@ extension LocationManager: CLLocationManagerDelegate {
                 self.address = address
                 print(address)
             }
+        }
     }
 }
