@@ -8,29 +8,28 @@
 import SwiftUI
 
 struct DailyWeatherView: View {
-    @ObservedObject var weatherVM: WeatherViewModel // APIレスポンスの値を保持するオブジェクト
+    @ObservedObject var weatherVM: WeatherViewModel
     var body: some View {
-        ScrollView(.horizontal) { // 水平方向(.horizontal)にスクロールする
-            // レスポンスに天気予報の情報があったとき
-            if let forecastsDay = weatherVM.forecast?.forecastsDay {
+        ScrollView(.horizontal) {
+            if let forecastDay = weatherVM.forecast?.forecastsDay {
                 HStack {
-                    ForEach(forecastsDay, id: \.self) { forecastDay in
+                    ForEach(forecastDay, id: \.self) { forecastDay in
                         // MARK: - 1日分の天気予報のUI
-                        VStack(spacing: 5) {
+                        VStack(spacing: 5) { // 各部品の間隔を5に指定
                             // 日付(年月日)
                             Text(forecastDay.toDisplayDate(forecastDay.date))
                                 .font(.callout)
                             
-                            // 天気アイコン
+                            // 天気アイコン画像
                             AsyncImageView(urlStr: "https:\(forecastDay.day.condition.icon)")
                                 .padding()
                                 .scaledToFit()
+                                
                             
-                            // 天気の説明(晴れ、曇りなど)
+                            // 天気の説明(晴れ、曇り 等)
                             Text(forecastDay.day.condition.text)
-                                .font(.headline)
                             
-                            // 最高気温 / 最低気温
+                            // 最高気温 ℃ / 最低気温 ℃
                             HStack {
                                 Text(forecastDay.day.maxTemp, format: .number)
                                     .foregroundStyle(.red)
@@ -44,9 +43,9 @@ struct DailyWeatherView: View {
                                     .foregroundStyle(.blue)
                             }
                             
-                            // 洪水確率 〇〇 %
+                            // 降水確率: 〇〇 %
                             HStack {
-                                Text("降水確率:")
+                                Text("降水確率: ")
                                 Text(forecastDay.day.dailyChanceOfRain, format: .number)
                                 Text("%")
                             }
@@ -54,29 +53,29 @@ struct DailyWeatherView: View {
                         }
                         .padding()
                         .frame(width: ScreenInfo.width / 2, height: ScreenInfo.height / 3)
-                        .background(.yellow.opacity(0.3))
-                        .clipShape(.rect(cornerRadius: 10))
+                        .background(.yellow.opacity(0.3))   // 背景色
+                        .clipShape(.rect(cornerRadius: 10)) // 角丸に切り取る
                     }
                 }
             } else {
-                // データが無いとき(または起動直後)に表示
+                // コピペした部分。データが無いとき(または起動直後)に表示。
                 HStack {
-                    ForEach(0...2, id: \.self) { _ in
+                    ForEach(0...2, id: \.self) { _ in // 3回繰り返して表示
                         // MARK: - 1日分の天気予報のUI
-                        VStack(spacing: 5) {
+                        VStack(spacing: 5) { // 各部品の間隔を5に指定
                             // 日付(年月日)
                             Text("____年__月__日")
                             
-                            // 天気アイコン
-                            Image(systemName: "cloud.sun")
+                            // 天気アイコン画像
+                            Image(systemName: "cloud.sun") // 今はサンプル画像
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 64, height: 64)
                             
-                            // 天気の説明(晴れ、曇りなど)
+                            // 天気の説明(晴れ、曇り 等)
                             Text("晴れのち曇り")
                             
-                            // 最高気温 / 最低気温
+                            // 最高気温 ℃ / 最低気温 ℃
                             HStack {
                                 Text("最高") // 数字が入る
                                 Text("℃ /")
@@ -84,7 +83,7 @@ struct DailyWeatherView: View {
                                 Text("℃")
                             }
                             
-                            // 洪水確率 〇〇 %
+                            // 降水確率: 〇〇 %
                             HStack {
                                 Text("降水確率:")
                                 Text("〇〇") // 数字が入る
@@ -93,8 +92,8 @@ struct DailyWeatherView: View {
                         }
                         .padding()
                         .frame(width: ScreenInfo.width / 2, height: ScreenInfo.height / 3)
-                        .background(.yellow.opacity(0.3))
-                        .clipShape(.rect(cornerRadius: 10))
+                        .background(.yellow.opacity(0.3))   // 背景色
+                        .clipShape(.rect(cornerRadius: 10)) // 角丸に切り取る
                     }
                 }
             }
@@ -104,7 +103,7 @@ struct DailyWeatherView: View {
 
 #Preview {
     @Previewable @StateObject var weatherVM = WeatherViewModel()
-    // 緯度・経度
+    // 八幡平市大更の緯度・経度
     let lat: Double = 39.91167
     let lon: Double = 141.093459
     

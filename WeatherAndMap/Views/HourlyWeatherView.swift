@@ -2,7 +2,7 @@
 //  HourlyWeatherView.swift
 //  WeatherAndMap
 //
-//  Created by 卜部大輝 on 2025/02/16.
+//  Created by Hiroki Urabe on 2025/02/16.
 //
 
 import SwiftUI
@@ -12,50 +12,57 @@ struct HourlyWeatherView: View {
     @ObservedObject var weatherVM: WeatherViewModel // APIレスポンスの値を保持する用
     
     var body: some View {
-        
-        ForEach(0...2, id: \.self) { _ in
-            VStack {
-                // 区切り線
-                Divider()
-                // 日付
-                Text("----年--月--日")
-                    .padding(.vertical, 5) // 垂直方向に余白を5とる
-                
-                // 時間毎の天気予報
-                HStack(spacing: 5) {
-                    HourlyWeatherHeader()
+        // 予報が取れているか確認
+        if let forecastsDay = weatherVM.forecast?.forecastsDay {
+            // ForEachで日毎に表示を作る
+            ForEach(forecastsDay, id: \.self) { forecastDay in
+                // compactMapを使って[HourlyForecast] → [HourlyDisplayForecast] に変換
+                let hourlyDisplayForecasts = forecastDay.hour.compactMap { HourlyDisplayForecast in
+                    HourlyDisplayForecast.toDisplayFormat(hourlyForecast: HourlyDisplayForecast)
+                }
+                VStack {
+                    // 区切り線
+                    Divider()
+                    // 日付
+                    Text(hourlyDisplayForecasts.first?.date ?? defaultDateStr)
+                        .padding(.vertical, 5) // 垂直方向に余白を5とる
                     
-                    // 0~23時までの時間毎の予報
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 5) {
-                            ForEach(0...23, id: \.self) { _ in
-                                // MARK: 1時間分の表示
-                                VStack(spacing: 10) {
-                                    // 時刻
-                                    Text("0")
-                                        .font(.subheadline)
-                                    
-                                    // 天気アイコン
-                                    Image(systemName: "cloud.sun")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 64, height: 64)
-                                    
-                                    // 気温
-                                    Text(20, format: .number)
-                                        .font(.subheadline)
-                                    
-                                    // 降水確率
-                                    Text(50, format: .number)
-                                        .font(.subheadline)
+                    // 時間毎の天気予報
+                    HStack(spacing: 5) {
+                        HourlyWeatherHeader()
+                        
+                        // 0~23時までの時間毎の予報
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 5) {
+                                ForEach(hourlyDisplayForecasts) { hourlyDisplayForecast in
+                                    // MARK: 1時間分の表示
+                                    VStack(spacing: 10) {
+                                        // 時刻
+                                        Text(hourlyDisplayForecast.time)
+                                            .font(.subheadline)
+                                            .scaledToFit()
+                                        
+                                        // 天気アイコン
+                                        AsyncImageView(urlStr: "https:\(hourlyDisplayForecast.weatherIcon)")
+                                            .frame(maxWidth:64, maxHeight: 64)
+                                            .scaledToFit()
+                                        
+                                        // 気温
+                                        Text(hourlyDisplayForecast.temperature, format: .number)
+                                            .font(.subheadline)
+                                        
+                                        // 降水確率
+                                        Text(hourlyDisplayForecast.chanceOfRain, format: .number)
+                                            .font(.subheadline)
+                                    }
+                                    .frame(width: ScreenInfo.width / 9)
                                 }
-                                .frame(width: ScreenInfo.width / 9)
                             }
+                            .padding()
+                            .frame(height: 180)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(.rect(cornerRadius: 10))
                         }
-                        .padding()
-                        .frame(height: 180)
-                        .background(Color.gray.opacity(0.2))
-                        .clipShape(.rect(cornerRadius: 10))
                     }
                 }
             }
@@ -95,6 +102,6 @@ struct HourlyWeatherHeader: View {
         }
 }
 
-#Preview("ContentView") {
+#Preview {
     ContentView()
 }

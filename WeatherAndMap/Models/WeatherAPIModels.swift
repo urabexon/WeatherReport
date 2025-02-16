@@ -71,14 +71,12 @@ struct HourlyForecast: Codable, Hashable {
     let temperature: Double
     let condition: Condition
     let chanceOfRain: Double
-    let chanceOfSnow: Double
         
     enum CodingKeys: String, CodingKey {
         case time
         case temperature = "temp_c"
         case condition
         case chanceOfRain = "chance_of_rain"
-        case chanceOfSnow = "chance_of_snow"
     }
     
     // 時間毎の予報を表示用の構造体の形に変換
