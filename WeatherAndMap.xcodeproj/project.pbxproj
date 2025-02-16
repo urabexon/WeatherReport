@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		482316892D608B6B009DFF7A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 482316882D608B6B009DFF7A /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		482316632D607A40009DFF7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +33,22 @@
 		4823166C2D607A40009DFF7A /* WeatherAndMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAndMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4823168D2D609347009DFF7A /* Exceptions for "WeatherAndMap" folder in "WeatherAndMap" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 482316512D607A3F009DFF7A /* WeatherAndMap */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		482316542D607A3F009DFF7A /* WeatherAndMap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4823168D2D609347009DFF7A /* Exceptions for "WeatherAndMap" folder in "WeatherAndMap" target */,
+			);
 			path = WeatherAndMap;
 			sourceTree = "<group>";
 		};
@@ -42,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482316892D608B6B009DFF7A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +118,7 @@
 			);
 			name = WeatherAndMap;
 			packageProductDependencies = (
+				482316882D608B6B009DFF7A /* Alamofire */,
 			);
 			productName = WeatherAndMap;
 			productReference = 482316522D607A3F009DFF7A /* WeatherAndMap.app */;
@@ -177,6 +196,9 @@
 			);
 			mainGroup = 482316492D607A3F009DFF7A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				482316872D608B6B009DFF7A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 482316532D607A3F009DFF7A /* Products */;
 			projectDirPath = "";
@@ -381,6 +403,7 @@
 				DEVELOPMENT_TEAM = X39V762XRA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherAndMap/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,6 +433,7 @@
 				DEVELOPMENT_TEAM = X39V762XRA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherAndMap/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -540,6 +564,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		482316872D608B6B009DFF7A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		482316882D608B6B009DFF7A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 482316872D608B6B009DFF7A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4823164A2D607A3F009DFF7A /* Project object */;
 }

@@ -16,11 +16,12 @@ struct ContentView: View {
     var lon: Double = 141.093459
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ScrollView {
+                
+            }
+            .navigationTitle("ここに現在地がどこか表示") // 画面上部のタイトル
+            .navigationBarTitleDisplayMode(.inline) // タイトルの書式
         }
         .padding()
         .onAppear {
