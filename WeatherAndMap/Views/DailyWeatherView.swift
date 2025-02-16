@@ -22,10 +22,9 @@ struct DailyWeatherView: View {
                                 .font(.callout)
                             
                             // 天気アイコン
-                            Image(systemName: "cloud.sun")
-                                .resizable()
+                            AsyncImageView(urlStr: "https:\(forecastDay.day.condition.icon)")
+                                .padding()
                                 .scaledToFit()
-                                .frame(width: 64, height: 64)
                             
                             // 天気の説明(晴れ、曇りなど)
                             Text(forecastDay.day.condition.text)

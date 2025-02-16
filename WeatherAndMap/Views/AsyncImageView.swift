@@ -12,7 +12,18 @@ struct AsyncImageView: View {
     let urlStr: String
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        // URL型に変換できたらAsyncImageで画像を取得
+        if let url = URL(string: urlStr) {
+            AsyncImage(url: url) { image in
+                image // この部分が取得した画像を表示するビュー
+                    .resizable() // リサイズ可能にする
+            } placeholder: {
+                ProgressView() // 進捗のインジケータのビュー
+                    .scaledToFit()
+            }
+        } else { // 🔹ここを修正
+            Text("No Image")
+        }
     }
 }
 
