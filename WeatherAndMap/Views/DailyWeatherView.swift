@@ -103,7 +103,7 @@ struct DailyWeatherView: View {
 
 #Preview {
     @Previewable @StateObject var weatherVM = WeatherViewModel()
-    // 八幡平市大更の緯度・経度
+    // 緯度・経度
     let lat: Double = 39.91167
     let lon: Double = 141.093459
     
