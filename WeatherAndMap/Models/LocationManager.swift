@@ -1,10 +1,3 @@
-//
-//  LocationManager.swift
-//  WeatherAndMap
-//
-//  Created by Hiroki Urabe on 2025/02/16.
-//
-
 import SwiftUI
 import MapKit
 
