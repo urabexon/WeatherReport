@@ -85,3 +85,13 @@ struct Condition: Codable, Hashable {
     let text: String
     let icon: String
 }
+
+// 毎時予報表示用の構造体
+struct HourlyDisplayForecast: Identifiable {
+    var id = UUID()
+    let date: String
+    let time: String
+    let weatherIcon: String
+    let temperature: Double
+    let chanceOfRain: Double
+}
