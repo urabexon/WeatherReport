@@ -11,7 +11,7 @@ struct ContentView: View {
     // APIへリクエスト、レスポンスの値を保持するオブジェクト
     @StateObject private var weatherVM = WeatherViewModel()
     @StateObject var locationManager = LocationManager()
-    // 八幡平市大更の緯度・経度
+    // 緯度・経度
     var lat: Double = 39.91167
     var lon: Double = 141.093459
     
