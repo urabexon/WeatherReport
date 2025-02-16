@@ -21,10 +21,10 @@ struct MyLocationView: View {
     // 作成したマーカーを入れる変数
     @State var myLocations: [MyLocation] = []
     
+    // マーカー(地図上でタップした)位置の天気を表示する画面への遷移を制御
+    @State private var isPresented = false
+    
     var body: some View {
-        // プレビューでの確認用Text、あとで削除するかも
-        Text("coordinate: \(tappedPoint.latitude), \(tappedPoint.longitude)")
-        
         MapReader { mapProxy in
             Map(position: $position)  { // Map の表示位置を $position に指定
                 UserAnnotation() // ユーザーの位置の青ピンを表示
@@ -37,6 +37,11 @@ struct MyLocationView: View {
                             .frame(width: 50, height: 50)
                             .background(.white)
                             .clipShape(.circle)
+                        
+                            // マーカーがタップされたときの処理
+                            .onTapGesture {
+                                isPresented = true
+                            }
                     }
                 }
             }
@@ -54,6 +59,15 @@ struct MyLocationView: View {
                     
                     // myLocationsにタップした地点の情報を追加(地図上にピンを追加)
                     generateNewLocation(coordinate: coordinate)
+                }
+            }
+            // マーカーの位置の天気予報を画面の下から出てくるシートとして表示
+            .sheet(isPresented: $isPresented) {
+                // マーカー(MyLocationオブジェクト)があるとき
+                if let myLocation = myLocations.last {
+                    // PointWeatherViewをシートに表示
+                    PointWeatherView(locationManager: locationManager, myLocation: myLocation)
+                        .presentationDetents([.medium]) // シートの高さを画面の半分ほどに設定
                 }
             }
         }

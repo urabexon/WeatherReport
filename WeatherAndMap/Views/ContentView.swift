@@ -19,7 +19,7 @@ struct ContentView: View {
         NavigationStack{
             ScrollView {
                 VStack(spacing: 20) {
-                    DailyWeatherView(weatherVM: weatherVM)
+                    DailyWeatherView(weatherVM: weatherVM, locationManager: locationManager)
                     HourlyWeatherView(weatherVM: weatherVM)
                 }
                 .padding()
