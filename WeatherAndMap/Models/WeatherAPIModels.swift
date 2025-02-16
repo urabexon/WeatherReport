@@ -40,6 +40,14 @@ struct ForecastDay: Codable, Hashable {
     let date: String
     let day: DailyForecast
     let hour: [HourlyForecast]
+    
+    func toDisplayDate(_ date: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let date = formatter.date(from: date) else { return "" }  // String型を一度Date型に変換
+        formatter.dateFormat = "yyyy年MM月dd日"
+        return formatter.string(from: date) // Date型から指定した形式にしてString型に変換して返す
+    }
 }
     
 // 日毎の予報
