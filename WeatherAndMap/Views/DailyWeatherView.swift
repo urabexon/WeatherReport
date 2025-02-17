@@ -52,6 +52,12 @@ struct DailyWeatherView: View {
                                 Text("%")
                             }
                             .font(.subheadline)
+                            
+                            // 月の満ち欠けの画像表示
+                                Image(moonPhaseImage(moonPhase: forecastDay.astro.moonPhase))
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
                         }
                         .padding()
                         .frame(width: ScreenInfo.width / 2, height: ScreenInfo.height / 3)
@@ -116,6 +122,32 @@ struct DailyWeatherView: View {
             }
         }
     }
+    // 月の表示管理する関数(画像ファイル名を返す)
+    func moonPhaseImage(moonPhase: String) -> String {
+        let phase = moonPhase.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+//        print("取得したmoonPhase: \(phase)") // デバッグ用出力
+        switch phase {
+        case "new moon":
+            return "New Moon"
+        case "waxing crescent":
+            return "Waxing Crescent"
+        case "first quarter":
+            return "First Quarter"
+        case "waxing gibbous":
+            return "Waxing Gibbous"
+        case "full moon":
+            return "Full Moon"
+        case "waning gibbous":
+            return "Waning Gibbous"
+        case "last quarter":
+            return "Last Quarter"
+        case "waning crescent":
+            return "Waning Crescent"
+        default:
+            return "New Moon"
+        }
+    }
+
 }
 
 #Preview {
